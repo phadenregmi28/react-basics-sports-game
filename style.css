@@ -1,0 +1,42 @@
+html * {
+    box-sizing: border border-box;
+    background-color: lightskyblue;
+   }
+
+.body {
+   padding: 0;
+   margin: 0;
+  
+}
+
+.Game {
+   text-align: center;
+   clear: both;
+}
+
+.Team-1 {
+   float: left;
+}
+ 
+.Team-2 { 
+   float: right;
+}
+
+.Player img {
+       max-width: 15px;
+   }
+
+.Shoot {
+   display: flex;
+   justify-content: left;
+   align-items: center;
+}
+
+.App {
+   display: center;
+   color: black;
+   font-style: normal;
+   
+}
+
+

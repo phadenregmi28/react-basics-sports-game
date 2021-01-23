@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>React Sports Game</title>
+    <link  rel="stylesheets" href="style.css">
 </head>
 <body>
     <!-- include an element for ReactDOM to attach our React-generated elements to -->
@@ -17,25 +18,135 @@
     <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
     <!-- include our JS+JSX for the React Appliccation -->
-<script type="text/babel">
+  <script type="text/babel">
+  
+  
+  class Team extends React.Component {
+    constructor(props){
+       super(props)
+       this.state ={
+         shots: 0,
+         score: 0
+      }
+      this.shotsSound = new Audio("./Basket.mp3")
+      this.scoreSound = new Audio("./Football.mp3")
+      }
+        
+      shotHandler = () =>{
 
-// An App component under which all other components will be added
-function App (props) {
-  return (
-    <div>
-      <h1>Welcome to the Sports Game starter!</h1>
-      <em>This file represents the way your code should look after completing the <strong>Setup</strong> steps in the instructions.</em>
-    </div>
+      let score = this.state.score
+      this.shotsSound.play()
+
+        if(Math.random()>0.60) {
+        score += 1
+
+        setTimeout(()=>{
+
+          
+      this.scoreSound.play()
+      },20)
+      }
+         
+      this.setState((state,props)=>({
+           shots: state.shots + 1,
+           score
+         }))
+      }
+      
+      render(){
+      
+      let shotPercentageDiv
+       if(this.state.shots){
+       const shotPercentage = Math.round((this.state.score/ this.state.shots)*50)
+         shotPercentageDiv = ( 
+                <div>
+                 <strong> Shooting %:{shotPercentage}</strong>
+                </div>)
+      }
+      
+       return(
+         <div className="Team">
+          <div className="Player">
+            <h3>{this.props.name}</h3>
+            <img src={this.props.logo} alt={this.props.name}/>
+            <p><strong> Shots:</strong> {this.state.shots}</p>
+              <em> <strong> Score:</strong> {this.state.score}</em>
+            </div >
+            
+            
+            {shotPercentageDiv}
+
+            <button onClick ={this.shotHandler}>Shoot!</button>
+        </div>
+       )}
+      }
+       
+
+      function Game(props){
+        return(
+          <div className ="Game">
+            <h2>Welcome to Football Game {props.venue}</h2>
+          <div className="state">
+        
+          <div className= "Team-1"><Team  
+        name= {props.visitingTeam.name}
+        logo={props.visitingTeam.logoSrc}/></div>
+
+        <div className=" Team-2"><Team 
+        name= {props.homeTeam.name}
+        
+        logo={props.homeTeam.logoSrc}/></div>
+          </div>
+        </div>
+        
+        )
+      }
+    
+      function App(props) {
+
+      const Detroit ={
+        name:"Detroit Tiger",
+        logoSrc:"./Detroit.jpg"
+      }
+
+    
+      const Georgia ={
+        name:"Georgia State",
+        logoSrc:"./Georgia.jpg"
+      }
+
+     const USA ={
+       name:"US National Team",
+       logoSrc:"./USA.png"
+      }
+      
+      
+      const Brazil={
+       name: "Brazil National Team",
+       logoSrc:"./Brazil.png"
+      }
+
+      return(
+        <div className="App">
+          <Game
+            venue ="Detroit Lions"
+            homeTeam ={Detroit}
+            visitingTeam ={Georgia}/>
+          <Game 
+            venue ="Morumbi"
+            homeTeam ={Brazil}
+          visitingTeam ={USA}/>
+        </div>
+        )
+      }
+    
+    
+  // Render the App
+  ReactDOM.render(
+    <App />,
+    document.getElementById('root')
   )
-}
 
-
-
-// Render the App
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-)
 </script>
 </body>
 </html>
