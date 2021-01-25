@@ -23,7 +23,7 @@ html * {
 }
 
 .Player img {
-       max-width: 15px;
+       max-width: 195px;
    }
 
 .Shoot {
@@ -38,5 +38,3 @@ html * {
    font-style: normal;
    
 }
-
-
